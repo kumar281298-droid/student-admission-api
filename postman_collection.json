@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "student-admission-api-collection",
+		"name": "Student Admission System REST API",
+		"description": "Production-grade RESTful API for Student Admission & College Management System with Sanctum RBAC, Atomic Seat Management, and AI Application Summary.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://127.0.0.1:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Auth - Register Student",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Amit Kumar\",\n  \"email\": \"amit@example.com\",\n  \"password\": \"password\",\n  \"mobile\": \"9876543210\",\n  \"dob\": \"2004-01-15\",\n  \"gender\": \"Male\",\n  \"address\": \"New Delhi\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": ["{{baseUrl}}"],
+					"path": ["register"]
+				}
+			}
+		},
+		{
+			"name": "2. Auth - Login Admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"admin@system.com\",\n  \"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": ["{{baseUrl}}"],
+					"path": ["login"]
+				}
+			}
+		},
+		{
+			"name": "3. Colleges - List Colleges",
+			"request": {
+				"method": "GET",
+				"header": [
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"url": {
+					"raw": "{{baseUrl}}/colleges",
+					"host": ["{{baseUrl}}"],
+					"path": ["colleges"]
+				}
+			}
+		},
+		{
+			"name": "4. Colleges - Single College Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"url": {
+					"raw": "{{baseUrl}}/colleges/1",
+					"host": ["{{baseUrl}}"],
+					"path": ["colleges", "1"]
+				}
+			}
+		},
+		{
+			"name": "5. Applications - Submit Application",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Authorization", "value": "Bearer {{token}}" },
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"college_id\": 1,\n  \"course_id\": 1,\n  \"remarks\": \"Applying for B.Sc CS\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/applications",
+					"host": ["{{baseUrl}}"],
+					"path": ["applications"]
+				}
+			}
+		},
+		{
+			"name": "6. Applications - List Applications (Scoped)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{ "key": "Authorization", "value": "Bearer {{token}}" },
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"url": {
+					"raw": "{{baseUrl}}/applications?search=Rahul&status=SUBMITTED",
+					"host": ["{{baseUrl}}"],
+					"path": ["applications"],
+					"query": [
+						{ "key": "search", "value": "Rahul" },
+						{ "key": "status", "value": "SUBMITTED" }
+					]
+				}
+			}
+		},
+		{
+			"name": "7. Applications - Approve Application (Atomic Seat Lock)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Authorization", "value": "Bearer {{token}}" },
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"remarks\": \"Verified credentials. Approved for admission.\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/applications/1/approve",
+					"host": ["{{baseUrl}}"],
+					"path": ["applications", "1", "approve"]
+				}
+			}
+		},
+		{
+			"name": "8. AI Assistance - Generate Application Summary",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Authorization", "value": "Bearer {{token}}" },
+					{ "key": "Accept", "value": "application/json" }
+				],
+				"url": {
+					"raw": "{{baseUrl}}/applications/1/ai-summary",
+					"host": ["{{baseUrl}}"],
+					"path": ["applications", "1", "ai-summary"]
+				}
+			}
+		}
+	]
+}
