@@ -1,6 +1,6 @@
-# 🎓 Student Admission & College Management System (Laravel 12 REST API)
+# 🎓 Student Admission & College Management System (Laravel 12 & Web UI)
 
-A production-grade, secure, and clean **Laravel 12 RESTful API** backend for managing student college admissions. Designed with **Server-Side RBAC**, **Atomic Concurrent-Safe Seat Allocation**, **AI-Assisted Application Summarization**, and automated PHPUnit test coverage.
+A production-grade, secure, and clean **Laravel 12 RESTful API & Interactive Web Dashboard** for managing student college admissions. Designed with **Server-Side RBAC**, **Atomic Concurrent-Safe Seat Allocation**, **AI-Assisted Application Summarization**, **Interactive Web UI**, and automated PHPUnit test coverage.
 
 ---
 
@@ -25,15 +25,21 @@ cp .env.example .env
 # 4. Generate Application Key
 php artisan key:generate
 
-# 5. Execute Database Migrations & Seeders
+# 5. Link Storage Disk (For Logos & Profile Photos)
+php artisan storage:link
+
+# 6. Execute Database Migrations & Seeders
 php artisan migrate:fresh --seed
 
-# 6. Run PHPUnit Test Suite (Verifies 100% Pass)
+# 7. Run PHPUnit Test Suite (Verifies 100% Pass)
 php artisan test
 
-# 7. Start Development Server (runs on http://127.0.0.1:8000)
+# 8. Start Development Server (runs on http://127.0.0.1:8000)
 php artisan serve
 ```
+
+### 🖥️ Interactive Web UI Dashboard
+Open **`http://127.0.0.1:8000`** in any web browser to access the complete Single-Page Application (SPA) testing dashboard. Use the **Quick Role Switcher Toolbar** at the top to instantly test permissions as System Admin, College Admin, or Student!
 
 ---
 
